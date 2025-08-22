@@ -1,52 +1,38 @@
 import { type Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import clsx from "clsx";
 
 import { Container } from "@/components/Container";
-import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/SocialIcons";
 import portraitImage from "@/images/portrait.jpg";
-
-function SocialLink({
-  className,
-  href,
-  children,
-  icon: Icon,
-}: {
-  className?: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-  children: React.ReactNode;
-}) {
-  return (
-    <li className={clsx(className, "flex")}>
-      <Link
-        href={href}
-        className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
-      >
-        <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500" />
-        <span className="ml-4">{children}</span>
-      </Link>
-    </li>
-  );
-}
-
-function MailIcon(props: React.ComponentPropsWithoutRef<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-      <path
-        fillRule="evenodd"
-        d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
-      />
-    </svg>
-  );
-}
+import { SocialLinkConstants } from "@/libs/constants";
+import { SocialLinks } from "./components/SocialLinks";
+import { Technologies } from "./components/Technologies";
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "I’m Spencer Sharp. I live in New York City, where I design the future.",
+  description: "I’m Cao Chi Hai",
 };
+
+const socials = [
+  {
+    id: "GitHub",
+    title: "Follow on GitHub",
+    href: SocialLinkConstants.GITHUB,
+    icon: GitHubIcon,
+  },
+  {
+    id: "LinkedIn",
+    title: "Follow on LinkedIn",
+    href: SocialLinkConstants.LINKEDIN,
+    icon: LinkedInIcon,
+  },
+  {
+    id: "Email",
+    title: "haicao2805@gmail.com",
+    href: SocialLinkConstants.GMAIL,
+    icon: MailIcon,
+  },
+];
 
 export default function About() {
   return (
@@ -62,6 +48,7 @@ export default function About() {
             />
           </div>
         </div>
+
         <div className="lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
             I am Cao Chi Hai and I am just a IT guy who want to be rich.
@@ -90,40 +77,16 @@ export default function About() {
               mattis congue. Donec cursus, nunc eget malesuada elementum, lectus
               velit commodo ante, eget venenatis ligula felis non orci.
             </p>
-            <p>
-              Ut tellus turpis, facilisis a velit finibus, imperdiet commodo
-              diam. Vivamus suscipit non augue ac gravida. Ut sagittis tellus
-              ullamcorper est pulvinar rutrum. Fusce id molestie sem. In iaculis
-              est non odio mollis bibendum. Aliquam non tortor sapien. Mauris
-              cursus lacus quis tortor tempus, eget bibendum lorem facilisis.
-              Nullam iaculis in ipsum at tempor. In at eleifend tellus. Vivamus
-              lacus orci, rhoncus convallis auctor in, elementum sodales diam.
-              Proin ante nibh, dapibus ut orci id, pretium mattis felis. Etiam
-              non orci eget arcu molestie scelerisque in sed lorem. Vivamus
-              viverra, magna accumsan lacinia blandit, mauris velit sodales
-              odio, facilisis vehicula diam ligula non elit. Nullam finibus quam
-              non tincidunt vestibulum. Pellentesque habitant morbi tristique
-              senectus et netus et malesuada fames ac turpis egestas.
-            </p>
           </div>
         </div>
+
         <div className="lg:pl-20">
-          <ul role="list">
-            <SocialLink href="#" icon={GitHubIcon} className="mt-4">
-              Follow on GitHub
-            </SocialLink>
-            <SocialLink href="#" icon={LinkedInIcon} className="mt-4">
-              Follow on LinkedIn
-            </SocialLink>
-            <SocialLink
-              href="mailto:spencer@planetaria.tech"
-              icon={MailIcon}
-              className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
-            >
-              spencer@planetaria.tech
-            </SocialLink>
-          </ul>
+          <SocialLinks socials={socials} />
         </div>
+      </div>
+
+      <div>
+        <Technologies />
       </div>
     </Container>
   );
