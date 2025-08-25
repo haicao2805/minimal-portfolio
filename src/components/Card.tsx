@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import clsx from 'clsx'
+import Link from "next/link";
+import clsx from "clsx";
 
-function ChevronRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function ChevronRightIcon(props: React.ComponentPropsWithoutRef<"svg">) {
   return (
     <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
       <path
@@ -11,102 +11,87 @@ function ChevronRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
-export function Card<T extends React.ElementType = 'div'>({
+export function Card<T extends React.ElementType = "div">({
   as,
   className,
   children,
-}: Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'className'> & {
-  as?: T
-  className?: string
+}: Omit<React.ComponentPropsWithoutRef<T>, "as" | "className"> & {
+  as?: T;
+  className?: string;
 }) {
-  const Component = as ?? 'div'
+  const Component = as ?? "div";
 
   return (
     <Component
-      className={clsx(className, 'group relative flex flex-col items-start')}
+      className={clsx(className, "group relative flex flex-col items-start")}
     >
+      <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-zinc-800/50" />
       {children}
     </Component>
-  )
+  );
 }
 
-Card.Link = function CardLink({
-  children,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof Link>) {
+Card.Title = function CardTitle({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <div className="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-zinc-800/50" />
-      <Link {...props}>
-        <span className="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl" />
-        <span className="relative z-10">{children}</span>
-      </Link>
-    </>
-  )
-}
-
-Card.Title = function CardTitle<T extends React.ElementType = 'h2'>({
-  as,
-  href,
-  children,
-}: Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'href'> & {
-  as?: T
-  href?: string
-}) {
-  const Component = as ?? 'h2'
-
-  return (
-    <Component className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
-      {href ? <Card.Link href={href}>{children}</Card.Link> : children}
-    </Component>
-  )
-}
+    <h3 className="relative z-10 text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+      {children}
+    </h3>
+  );
+};
 
 Card.Description = function CardDescription({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <p className="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
       {children}
     </p>
-  )
-}
+  );
+};
 
-Card.Cta = function CardCta({ children }: { children: React.ReactNode }) {
+Card.CallToAction = function CardCallToAction({
+  children,
+  href,
+}: {
+  children: React.ReactNode;
+  href: string;
+}) {
   return (
-    <div
+    <Link
+      href={href}
+      target="_blank"
       aria-hidden="true"
       className="relative z-10 mt-4 flex items-center text-sm font-medium text-teal-500"
     >
       {children}
       <ChevronRightIcon className="ml-1 h-4 w-4 stroke-current" />
-    </div>
-  )
-}
+    </Link>
+  );
+};
 
-Card.Eyebrow = function CardEyebrow<T extends React.ElementType = 'p'>({
+Card.Eyebrow = function CardEyebrow<T extends React.ElementType = "p">({
   as,
   decorate = false,
   className,
   children,
   ...props
-}: Omit<React.ComponentPropsWithoutRef<T>, 'as' | 'decorate'> & {
-  as?: T
-  decorate?: boolean
+}: Omit<React.ComponentPropsWithoutRef<T>, "as" | "decorate"> & {
+  as?: T;
+  decorate?: boolean;
 }) {
-  const Component = as ?? 'p'
+  const Component = as ?? "p";
 
   return (
     <Component
       className={clsx(
         className,
-        'relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500',
-        decorate && 'pl-3.5',
+        "relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500",
+        decorate && "pl-3.5",
       )}
       {...props}
     >
@@ -120,6 +105,5 @@ Card.Eyebrow = function CardEyebrow<T extends React.ElementType = 'p'>({
       )}
       {children}
     </Component>
-  )
-}
-
+  );
+};

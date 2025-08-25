@@ -30,12 +30,10 @@ function Appearance({
 }) {
   return (
     <Card as="article">
-      <Card.Title as="h3" href={href}>
-        {title}
-      </Card.Title>
+      <Card.Title>{title}</Card.Title>
       <Card.Eyebrow decorate>{role}</Card.Eyebrow>
       <Card.Description>{description}</Card.Description>
-      <Card.Cta>{cta}</Card.Cta>
+      <Card.CallToAction href={href}>{cta}</Card.CallToAction>
     </Card>
   );
 }
@@ -51,7 +49,7 @@ export default function Education() {
       <div className="space-y-20">
         <ExperienceSection title="Jan 2024 - Aug 2025">
           <Appearance
-            href="https://minimaltek.com/"
+            href="https://daihoc.fpt.edu.vn/en/"
             title="FPT Ho Chi Minh University"
             description="Description"
             role="Software Engineering"
